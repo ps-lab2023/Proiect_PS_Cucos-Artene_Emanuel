@@ -15,6 +15,7 @@ import java.util.Set;
 @Builder
 public class Airline {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

@@ -1,8 +1,6 @@
 package com.travelPlanning.model.travel;
 
 import com.travelPlanning.model.Trip;
-import com.travelPlanning.model.travel.Airline;
-import com.travelPlanning.model.travel.Airport;
 import com.travelPlanning.utils.FlightClass;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +19,7 @@ import java.util.Set;
 public class Flight {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

@@ -1,7 +1,6 @@
 package com.travelPlanning.model.appUser;
 
 import com.travelPlanning.model.Trip;
-import com.travelPlanning.model.appUser.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +18,7 @@ import java.util.Set;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
