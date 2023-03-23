@@ -23,6 +23,9 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

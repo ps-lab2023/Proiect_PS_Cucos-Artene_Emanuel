@@ -1,6 +1,6 @@
 package com.travelPlanning.service.implementation;
 
-import com.travelPlanning.model.appUser.User;
+import com.travelPlanning.model.Trip;
 import com.travelPlanning.model.travel.Flight;
 import com.travelPlanning.repository.travel.FlightRepository;
 import com.travelPlanning.service.FlightService;
@@ -17,10 +17,9 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Set<Flight> getFlightsByUser(User user) {
+    public Set<Flight> getFlightsByTrip(Trip trip) {
         return flightRepository.findAll().stream()
-                .filter(flight -> flight.getTrips().stream()
-                        .anyMatch(trip -> trip.getUser().equals(user)))
+                .filter(flight -> flight.getTrips().stream().anyMatch(trip1 -> trip1.equals(trip)))
                 .collect(Collectors.toSet());
     }
 }
