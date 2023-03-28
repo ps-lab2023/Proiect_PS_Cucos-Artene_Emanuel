@@ -5,6 +5,7 @@ import com.travelPlanning.repository.appUser.UserRepository;
 import com.travelPlanning.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,4 +34,20 @@ public class UserServiceImpl implements UserService {
     public Boolean existsByEmail(String email) {
         return userRepository.findAll().stream()
                 .anyMatch(user -> user.getEmail().equals(email));    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.deleteById(user.getId());
+        userRepository.save(user);
+    }
 }

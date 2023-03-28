@@ -5,6 +5,7 @@ import com.travelPlanning.repository.objectives.ObjectiveRepository;
 import com.travelPlanning.service.ObjectiveService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,5 +23,21 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         return objectiveRepository.findAll().stream()
                 .filter(objective -> objective.getCity().equals(city))
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<Objective> getAllObjectives() {
+        return objectiveRepository.findAll();
+    }
+
+    @Override
+    public void deleteObjectiveById(Long id) {
+        objectiveRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateObjective(Objective objective) {
+        objectiveRepository.deleteById(objective.getId());
+        objectiveRepository.save(objective);
     }
 }

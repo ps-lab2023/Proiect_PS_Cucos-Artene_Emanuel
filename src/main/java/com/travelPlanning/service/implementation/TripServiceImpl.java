@@ -6,6 +6,7 @@ import com.travelPlanning.repository.TripRepository;
 import com.travelPlanning.service.TripService;
 import org.springframework.stereotype.Service;
 import javax.management.BadAttributeValueExpException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,5 +38,21 @@ public class TripServiceImpl implements TripService {
         } else {
             throw new BadAttributeValueExpException(trip);
         }
+    }
+
+    @Override
+    public List<Trip> getAllTrips() {
+        return tripRepository.findAll();
+    }
+
+    @Override
+    public void deleteTripById(Long id) {
+        tripRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateTrip(Trip trip) {
+        tripRepository.deleteById(trip.getId());
+        tripRepository.save(trip);
     }
 }

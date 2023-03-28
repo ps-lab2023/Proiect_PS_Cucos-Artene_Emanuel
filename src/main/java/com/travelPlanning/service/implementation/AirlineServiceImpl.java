@@ -6,6 +6,7 @@ import com.travelPlanning.repository.travel.AirlineRepository;
 import com.travelPlanning.service.AirlineService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,5 +23,21 @@ public class AirlineServiceImpl implements AirlineService {
         return airlineRepository.findAll().stream()
                 .filter(airline -> airline.getFlights().stream().anyMatch(flight1 -> flight1.equals(flight)))
                 .findFirst();
+    }
+
+    @Override
+    public List<Airline> getAllAirlines() {
+        return airlineRepository.findAll();
+    }
+
+    @Override
+    public void deleteAirlineById(Long id) {
+        airlineRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateAirline(Airline airline) {
+        airlineRepository.deleteById(airline.getId());
+        airlineRepository.save(airline);
     }
 }

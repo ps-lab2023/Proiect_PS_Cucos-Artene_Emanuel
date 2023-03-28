@@ -1,9 +1,12 @@
 package com.travelPlanning;
 
+import com.travelPlanning.security.WebSecurityConfig;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
-@EnableAutoConfiguration
+@SpringBootApplication(scanBasePackages = "com.travelPlanning")
+@Import({ WebSecurityConfig.class })
 public class TravelPlanningApplication {
 
 	public static void main(String[] args) {
