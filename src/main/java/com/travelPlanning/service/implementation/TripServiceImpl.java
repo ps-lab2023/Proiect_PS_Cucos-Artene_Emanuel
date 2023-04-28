@@ -1,7 +1,6 @@
 package com.travelPlanning.service.implementation;
 
 import com.travelPlanning.model.Trip;
-import com.travelPlanning.model.appUser.User;
 import com.travelPlanning.repository.TripRepository;
 import com.travelPlanning.service.TripService;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,9 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Set<Trip> getTripsByUser(User user) {
+    public Set<Trip> getTripsByUser(String username) {
         return tripRepository.findAll().stream()
-                .filter(trip -> trip.getUser().equals(user))
+                .filter(trip -> trip.getUser().getUsername().equals(username))
                 .collect(Collectors.toSet());
     }
 

@@ -1,23 +1,20 @@
 package com.travelPlanning.model;
 
-import com.travelPlanning.model.appUser.User;
-import com.travelPlanning.model.hospitality.Hotel;
-import com.travelPlanning.model.objectives.Objective;
-import com.travelPlanning.model.travel.Flight;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "trips")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Trip {
+public class Trip implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +27,12 @@ public class Trip {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany()
-    @JoinColumn
+    @ManyToMany(mappedBy = "trips")
     private Set<Flight> flights;
 
-    @ManyToMany()
-    @JoinColumn
+    @ManyToMany(mappedBy = "trips")
     private Set<Hotel> hotels;
 
-    @ManyToMany()
-    @JoinColumn
+    @ManyToMany(mappedBy = "trips")
     private Set<Objective> objectives;
 }

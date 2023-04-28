@@ -1,7 +1,7 @@
 package com.proiectps.travelPlanning.service;
 
 import com.travelPlanning.model.Trip;
-import com.travelPlanning.model.travel.Flight;
+import com.travelPlanning.model.Flight;
 import com.travelPlanning.repository.travel.FlightRepository;
 import com.travelPlanning.service.FlightService;
 import com.travelPlanning.service.implementation.FlightServiceImpl;

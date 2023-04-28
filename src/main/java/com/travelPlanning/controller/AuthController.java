@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import com.travelPlanning.model.appUser.Role;
-import com.travelPlanning.model.appUser.User;
+
+import com.travelPlanning.model.Role;
+import com.travelPlanning.model.User;
 import com.travelPlanning.payload.request.LoginRequest;
 import com.travelPlanning.payload.request.SignupRequest;
 import com.travelPlanning.payload.response.JwtResponse;
@@ -106,7 +107,7 @@ public class AuthController {
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        if (strRoles == null || strRoles.isEmpty()) {
             Role userRole = roleService.getRoleByName(RoleType.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);

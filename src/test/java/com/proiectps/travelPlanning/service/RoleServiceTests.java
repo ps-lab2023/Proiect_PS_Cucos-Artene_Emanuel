@@ -1,6 +1,6 @@
 package com.proiectps.travelPlanning.service;
 
-import com.travelPlanning.model.appUser.Role;
+import com.travelPlanning.model.Role;
 import com.travelPlanning.repository.appUser.RoleRepository;
 import com.travelPlanning.service.RoleService;
 import com.travelPlanning.service.implementation.RoleServiceImpl;
@@ -35,25 +35,25 @@ public class RoleServiceTests {
 
     @Test
     void testRoleCreation() {
-        com.travelPlanning.model.appUser.Role role = com.travelPlanning.model.appUser.Role.builder().build();
-        List<com.travelPlanning.model.appUser.Role> beforeFoundRoles = roleRepository.findAll();
+        Role role = Role.builder().build();
+        List<Role> beforeFoundRoles = roleRepository.findAll();
         when(roleRepository.findAll()).thenReturn(Collections.singletonList(role));
         assert(beforeFoundRoles.size() == 0);
         roleRepository.save(role);
-        List<com.travelPlanning.model.appUser.Role> afterFoundRoles = roleRepository.findAll();
+        List<Role> afterFoundRoles = roleRepository.findAll();
         assert(afterFoundRoles.size() > 0);
         System.out.println("[INFO] Creation test passed!");
     }
 
     @Test
     void testRoleDeletion() {
-        com.travelPlanning.model.appUser.Role role = com.travelPlanning.model.appUser.Role.builder().build();
+        Role role = Role.builder().build();
         when(roleRepository.findAll()).thenReturn(Collections.singletonList(role));
-        List<com.travelPlanning.model.appUser.Role> beforeFoundRoles = roleRepository.findAll();
+        List<Role> beforeFoundRoles = roleRepository.findAll();
         assert(beforeFoundRoles.size() != 0);
         when(roleRepository.findAll()).thenReturn(Collections.emptyList());
         roleRepository.delete(role);
-        List<com.travelPlanning.model.appUser.Role> afterFoundRoles = roleRepository.findAll();
+        List<Role> afterFoundRoles = roleRepository.findAll();
         assert(beforeFoundRoles.size() != afterFoundRoles.size());
         System.out.println("[INFO] Deletion test passed!");
     }

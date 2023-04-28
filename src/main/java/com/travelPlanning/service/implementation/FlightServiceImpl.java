@@ -1,14 +1,16 @@
 package com.travelPlanning.service.implementation;
 
 import com.travelPlanning.model.Trip;
-import com.travelPlanning.model.travel.Flight;
+import com.travelPlanning.model.Flight;
 import com.travelPlanning.repository.travel.FlightRepository;
 import com.travelPlanning.service.FlightService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class FlightServiceImpl implements FlightService {
 
     private final FlightRepository flightRepository;

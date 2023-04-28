@@ -44,7 +44,6 @@ public class SignupRequest {
     @Size(min = 1, max = 25)
     private String lastName;
 
-    @NotNull
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date birthdate;
 }

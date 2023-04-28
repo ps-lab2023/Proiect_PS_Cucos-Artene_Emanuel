@@ -1,6 +1,6 @@
 package com.proiectps.travelPlanning.service;
 
-import com.travelPlanning.model.objectives.Objective;
+import com.travelPlanning.model.Objective;
 import com.travelPlanning.repository.objectives.ObjectiveRepository;
 import com.travelPlanning.service.ObjectiveService;
 import com.travelPlanning.service.implementation.ObjectiveServiceImpl;

@@ -1,6 +1,6 @@
 package com.travelPlanning.service.implementation;
 
-import com.travelPlanning.model.objectives.Objective;
+import com.travelPlanning.model.Objective;
 import com.travelPlanning.repository.objectives.ObjectiveRepository;
 import com.travelPlanning.service.ObjectiveService;
 import org.springframework.stereotype.Service;

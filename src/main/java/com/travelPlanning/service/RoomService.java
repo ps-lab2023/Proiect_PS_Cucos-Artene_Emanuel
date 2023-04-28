@@ -1,6 +1,6 @@
 package com.travelPlanning.service;
 
-import com.travelPlanning.model.hospitality.Room;
+import com.travelPlanning.model.Room;
 import org.springframework.stereotype.Component;
 
 import javax.management.BadAttributeValueExpException;

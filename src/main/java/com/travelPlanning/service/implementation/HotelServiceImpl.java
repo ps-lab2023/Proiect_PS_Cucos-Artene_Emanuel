@@ -1,6 +1,6 @@
 package com.travelPlanning.service.implementation;
 
-import com.travelPlanning.model.hospitality.Hotel;
+import com.travelPlanning.model.Hotel;
 import com.travelPlanning.repository.hospitality.HotelRepository;
 import com.travelPlanning.service.HotelService;
 import org.springframework.stereotype.Service;

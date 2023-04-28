@@ -1,6 +1,6 @@
 package com.travelPlanning.service;
 
-import com.travelPlanning.model.objectives.Objective;
+import com.travelPlanning.model.Objective;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.travelPlanning.service;
 
-import com.travelPlanning.model.travel.Airport;
-import com.travelPlanning.model.travel.Flight;
+import com.travelPlanning.model.Airport;
+import com.travelPlanning.model.Flight;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

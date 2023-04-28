@@ -1,6 +1,6 @@
 package com.travelPlanning.service.implementation;
 
-import com.travelPlanning.model.appUser.Role;
+import com.travelPlanning.model.Role;
 import com.travelPlanning.repository.appUser.RoleRepository;
 import com.travelPlanning.service.RoleService;
 import com.travelPlanning.utils.RoleType;

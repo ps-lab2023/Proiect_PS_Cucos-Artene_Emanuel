@@ -1,6 +1,6 @@
 package com.travelPlanning.service.implementation;
 
-import com.travelPlanning.model.appUser.User;
+import com.travelPlanning.model.User;
 import com.travelPlanning.repository.appUser.UserRepository;
 import com.travelPlanning.service.UserService;
 import org.springframework.stereotype.Service;

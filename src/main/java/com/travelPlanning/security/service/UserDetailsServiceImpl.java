@@ -1,6 +1,6 @@
 package com.travelPlanning.security.service;
 
-import com.travelPlanning.model.appUser.User;
+import com.travelPlanning.model.User;
 import com.travelPlanning.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,7 @@
 package com.proiectps.travelPlanning.service;
 
 import com.travelPlanning.model.Trip;
-import com.travelPlanning.model.appUser.User;
+import com.travelPlanning.model.User;
 import com.travelPlanning.repository.TripRepository;
 import com.travelPlanning.service.implementation.TripServiceImpl;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,6 @@
 package com.proiectps.travelPlanning.service;
 
-import com.travelPlanning.model.hospitality.Room;
+import com.travelPlanning.model.Room;
 import com.travelPlanning.repository.hospitality.RoomRepository;
 import com.travelPlanning.service.RoomService;
 import com.travelPlanning.service.implementation.RoomServiceImpl;
@@ -61,7 +61,7 @@ public class RoomServiceTests {
 
     @Test
     void testRoomUpdateByNumber() {
-        Room Room = com.travelPlanning.model.hospitality.Room.builder().id(1L).build();
+        Room Room = com.travelPlanning.model.Room.builder().id(1L).build();
         when(roomRepository.findAll()).thenReturn(Collections.singletonList(Room));
         roomService = new RoomServiceImpl(roomRepository);
         assert(Objects.isNull(Room.getRoomNumber()));
