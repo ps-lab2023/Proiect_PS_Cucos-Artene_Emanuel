@@ -84,7 +84,8 @@ export default function AdminPage() {
         flights: false,
         hotels: false,
         rooms: false,
-        objectives: false
+        objectives: false,
+        support: false
     })
 
     const [actionAddState, setActionAddState] = useState(true);
@@ -103,6 +104,7 @@ export default function AdminPage() {
     const [rooms, setRooms] = useState([])
     const [showObjectivesTable, setShowObjectivesTable] = useState(false);
     const [objectives, setObjectives] = useState([])
+    const [connectedUsersCount, setConnectedUsersCount] = useState(0);
 
     const setAllTablesFalse = () => {
         setShowAirlinesTable(false);
@@ -120,7 +122,8 @@ export default function AdminPage() {
             flights: false,
             hotels: false,
             rooms: false,
-            objectives: false
+            objectives: false,
+            support: false
         });
         setAllTablesFalse();
         const pageName = page.toLowerCase();
@@ -155,6 +158,10 @@ export default function AdminPage() {
                 getObjectives();
                 setShowObjectivesTable(true);
                 break;
+            case 'support':
+                setState({...state, support: true});
+                navigate("/support");
+                break;
             default:
                 break;
         }
@@ -165,6 +172,12 @@ export default function AdminPage() {
             setAirlines(res.data);
             return res.data
         });
+    }
+
+    function getConnectedUsers() {
+        return authService.getCountOfLoggedUsers().then(res => {
+            setConnectedUsersCount(res.data);
+        })
     }
 
     function getAirports() {
@@ -270,8 +283,14 @@ export default function AdminPage() {
                         onClickNavBarButton('objectives')
                     }}>Objectives</Button>
                     <Button style={topButtonsStyle} onClick={() => {
+                        onClickNavBarButton('support')
+                    }}>Support</Button>
+                    <Button style={topButtonsStyle} onClick={() => {
                         onCLickLogOutUser()
                     }}>Logout</Button>
+                    <Button style={topButtonsStyle} onClick={() => {
+                        getConnectedUsers()
+                    }}>{'Users: ' + connectedUsersCount}</Button>
                 </div>
             </div>
             <div className="row">
@@ -284,8 +303,8 @@ export default function AdminPage() {
                         <FlightInputForm add={actionAddState} update={actionUpdateState} delete={actionDeleteState}/>}
                     {showHotelsTable &&
                         <HotelInputForm add={actionAddState} update={actionUpdateState} delete={actionDeleteState}/>}
-                    {showObjectivesTable && <ObjectiveInputForm add={actionAddState} update={actionUpdateState}
-                                                                delete={actionDeleteState}/>}
+                    {showObjectivesTable &&
+                        <ObjectiveInputForm add={actionAddState} update={actionUpdateState} delete={actionDeleteState}/>}
                     {showRoomsTable &&
                         <RoomInputForm add={actionAddState} update={actionUpdateState} delete={actionDeleteState}/>}
                 </div>

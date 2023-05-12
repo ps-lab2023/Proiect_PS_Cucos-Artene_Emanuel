@@ -53,6 +53,9 @@ public class User implements Serializable {
     @Column(name = "birthdate")
     private Date birthdate;
 
+    @Column(name = "isLogged")
+    private boolean isLogged;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

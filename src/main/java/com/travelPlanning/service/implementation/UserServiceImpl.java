@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(user.getId());
         userRepository.save(user);
     }
+
+    @Override
+    public long countLoggedUsers() {
+        return userRepository.findAll().stream().filter(User::isLogged).count();
+    }
 }

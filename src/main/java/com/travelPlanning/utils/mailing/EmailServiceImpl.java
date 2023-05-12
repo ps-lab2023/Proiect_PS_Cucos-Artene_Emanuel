@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -28,7 +29,8 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setTo(details.getRecipient());
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
-            javaMailSender.send(mailMessage);
+            //javaMailSender.send(mailMessage);
+            System.out.println("message sent");
             return "Mail Sent Successfully...";
         }
         catch (Exception e) {

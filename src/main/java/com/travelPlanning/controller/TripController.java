@@ -1,6 +1,12 @@
 package com.travelPlanning.controller;
 
-import com.travelPlanning.dtos.UIRequestTrip;
+import com.spire.pdf.PdfDocument;
+import com.spire.pdf.PdfPageBase;
+import com.spire.pdf.PdfPageSize;
+import com.spire.pdf.graphics.*;
+import com.spire.pdf.lists.PdfSortedList;
+import com.spire.pdf.lists.PdfUnorderedList;
+import com.travelPlanning.dtos.*;
 import com.travelPlanning.model.Flight;
 import com.travelPlanning.model.Hotel;
 import com.travelPlanning.model.Objective;
@@ -123,5 +129,80 @@ public class TripController {
             });
         });
         return ResponseEntity.ok("Flight added successfully to trip with id " + tripId);
+    }
+
+    @PostMapping("/data")
+    public ResponseEntity<?> saveTripDataInFile(@Valid @RequestBody UIRequestSaveTrip trip){
+        PdfDocument doc = new PdfDocument();
+
+        //Set the margins
+        PdfMargins margins = new PdfMargins(30);
+
+        //Add a page
+        PdfPageBase page = doc.getPages().add(PdfPageSize.A4, margins);
+
+        //Specify the initial coordinate
+        float x = 0;
+        float y = 0;
+
+        //Draw title
+        PdfBrush brush = PdfBrushes.getBlack();
+        PdfFont titleFont = new PdfFont(PdfFontFamily.Times_Roman, 12f, PdfFontStyle.Bold);
+        String title = "#" + trip.getId() + " " + trip.getName();
+        page.getCanvas().drawString(title, titleFont, brush, x, y);
+        y = y + (float) titleFont.measureString(title).getHeight() + 5;
+
+        page.getCanvas().drawString("Flights", titleFont, brush, x, y);
+        y += (float) titleFont.measureString(title).getHeight() + 5;
+
+        //Draw numbered list
+        PdfFont listFont = new PdfFont(PdfFontFamily.Times_Roman, 12f, PdfFontStyle.Regular);
+        String flightsListContent = "";
+        for(UIRequestFlight flight: trip.getFlights()){
+            flightsListContent += flight.getId() + "\n";
+        }
+        PdfUnorderedList flightList = new PdfUnorderedList(flightsListContent.substring(0, flightsListContent.length() -1));
+        flightList.setFont(listFont);
+        flightList.setIndent(8);
+        flightList.setTextIndent(5);
+        flightList.setBrush(brush);
+        flightList.draw(page, 0, y);
+        y += 100;
+
+        page.getCanvas().drawString("Hotels", titleFont, brush, x, y);
+
+        y += (float) titleFont.measureString(title).getHeight() + 5;
+
+        String hotelsListContent = "";
+        for(UIRequestHotel hotel: trip.getHotels()){
+            hotelsListContent += hotel.getName() + "\n";
+        }
+        PdfUnorderedList hotelList = new PdfUnorderedList(hotelsListContent.substring(0, hotelsListContent.length() - 1));
+        hotelList.setFont(listFont);
+        hotelList.setIndent(8);
+        hotelList.setTextIndent(5);
+        hotelList.setBrush(brush);
+        hotelList.draw(page, 0, y);
+        y += 100;
+
+        page.getCanvas().drawString("Objectives", titleFont, brush, x, y);
+        y += (float) titleFont.measureString(title).getHeight() + 5;
+
+
+        String objectivesListContent = "";
+        for(UIRequestObjective objective: trip.getObjectives()){
+            objectivesListContent += objective.getName() + "\n";
+        }
+        PdfUnorderedList objectiveList = new PdfUnorderedList(objectivesListContent.substring(0, objectivesListContent.length() - 1));
+        objectiveList.setFont(listFont);
+        objectiveList.setIndent(8);
+        objectiveList.setTextIndent(5);
+        objectiveList.setBrush(brush);
+        objectiveList.draw(page, 0, y);
+        y += 100;
+
+        //Save to file
+        doc.saveToFile("output/" + trip.getName() + "#" + trip.getId() + ".pdf");
+        return ResponseEntity.ok("Trip saved successfully");
     }
 }

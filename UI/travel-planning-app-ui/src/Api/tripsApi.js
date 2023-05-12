@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {IUserTrip} from '../Model/trip.tsx'
+import {IModalTrip} from "../Model/trip.tsx";
 
 const TRIPS_REST_API_URL = 'http://localhost:8081/api/trips';
 
@@ -94,6 +95,18 @@ class TripService {
                 objectiveId: formData.objectiveId,
                 tripId: formData.tripId
             }
+        })
+    }
+
+    async sendTripData(formData: IModalTrip) {
+        return axios({
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': axios.defaults.headers.common["Authorization"]
+            },
+            url: TRIPS_REST_API_URL + '/data',
+            data: JSON.stringify(formData)
         })
     }
 }

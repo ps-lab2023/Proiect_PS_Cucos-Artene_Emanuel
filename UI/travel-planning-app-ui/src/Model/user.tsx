@@ -29,3 +29,8 @@ export interface IUserRegister {
     lastName: string;
     birthDate?: string;
 }
+
+export interface IChangePass {
+    email: string;
+    newPass: string;
+}

@@ -1,6 +1,7 @@
 package com.travelPlanning.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Airline implements Serializable {
     private Long id;
 
     @Column
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column

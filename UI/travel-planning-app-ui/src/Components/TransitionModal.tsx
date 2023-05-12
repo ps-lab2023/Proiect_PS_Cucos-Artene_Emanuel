@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
+import {Button} from "@material-ui/core";
+import tripServices from '../Api/tripsApi';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -21,20 +23,48 @@ export default function TransitionsModal(props) {
 
     const {open, tripName, tripId, flights, hotels, objectives, handleClose} = props;
 
-    const flightList = flights.map(flight => <li key={flight.id}>{flight.departureAirport + ' ' +
-                                                    flight.departureTime + ' ' +
-                                                    flight.arrivalAirport + ' ' +
-                                                    flight.arrivalTime + ' ' +
-                                                    flight.price}</li>);
+    function onClickDownloadTrip() {
+        const data = {
+            id: tripId,
+            name: tripName,
+            hotels: hotels,
+            flights: flights,
+            objectives: objectives,
+        }
+        tripServices.sendTripData(data)
+    }
 
-    const hotelList = hotels.map(hotel => <li key={hotel.id}>{hotel.name + ' ' +
-                                                        hotel.city + ' ' +
-                                                        hotel.stars}</li>)
+    const flightList = flights.map(flight =>
+        <li key={flight.id}>
+            <ul>{'Flight Id: ' + flight.id}
+                <li>{'Departure Airport: ' + flight.departureAirport}</li>
+                <li>{'Departure Time: ' + flight.departureTime}</li>
+                <li>{'Arrival Airport: ' + flight.arrivalAirport}</li>
+                <li>{'Arrival Time: ' + flight.arrivalTime}</li>
+                <li>{'Price: ' + flight.price}</li>
+            </ul>
+        </li>
+    );
 
-    const objectivesList = objectives.map(objective => <li key={objective.id}>{
-                                            objective.name + ' ' +
-                                            objective.city + ' ' +
-                                            objective.location}</li>)
+    const hotelList = hotels.map(hotel =>
+        <li key={hotel.id}>
+            <ul>{'Hotel Id: ' + hotel.id}
+                <li>{'Name: ' + hotel.name}</li>
+                <li>{'City: ' + hotel.city}</li>
+                <li>{'Stars: ' + hotel.stars}</li>
+            </ul>
+        </li>
+    );
+
+    const objectivesList = objectives.map(objective =>
+        <li key={objective.id}>
+            <ul>{'Objective Id: ' + objective.id}
+                <li>{'Name: ' + objective.name}</li>
+                <li>{'City: ' + objective.city}</li>
+                <li>{'Location: ' + objective.location}</li>
+            </ul>
+        </li>
+    );
 
     return (
         <div>
@@ -70,6 +100,13 @@ export default function TransitionsModal(props) {
                                 {objectivesList}
                             </ul>
                         </div>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            style={{backgroundColor: '#4db5ff', color: 'white'}}
+                            onClick={() => onClickDownloadTrip()}>
+                            Download Trip Planner
+                        </Button>
                     </Box>
                 </Fade>
             </Modal>

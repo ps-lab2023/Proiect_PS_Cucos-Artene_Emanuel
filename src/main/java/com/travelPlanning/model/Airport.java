@@ -1,6 +1,7 @@
 package com.travelPlanning.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,9 +21,11 @@ public class Airport implements Serializable {
     private Long id;
 
     @Column
+    @NotBlank(message = "City is mandatory")
     private String city;
 
     @Column
+    @NotBlank(message = "Country is mandatory")
     private String country;
 
     @OneToMany(mappedBy = "departureAirport")

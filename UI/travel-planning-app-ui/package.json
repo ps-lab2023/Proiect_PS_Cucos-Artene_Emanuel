@@ -16,10 +16,16 @@
     "axios": "^1.3.5",
     "browser-router": "^0.2.0",
     "react": "^18.2.0",
+    "react-chat-popup": "^1.1.2",
     "react-dom": "^18.2.0",
+    "react-native": "^0.71.7",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-stomp": "^5.1.0",
     "router": "^1.3.8",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

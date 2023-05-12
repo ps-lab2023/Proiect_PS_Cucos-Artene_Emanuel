@@ -15,6 +15,7 @@ function LoginPage() {
             username: username,
             password: password
         }).then((res)  => {
+            // @ts-ignore
             if(res.data.roles.includes("ROLE_ADMIN")){
                 navigate('/dashboard');
             } else {
@@ -28,10 +29,6 @@ function LoginPage() {
             <div className="left">
                 <div className="overlay">
                     <h1>Hello Traveler!</h1>
-                    {/*<span>*/}
-                    {/*    <a href="#"><i className="fa fa-facebook" aria-hidden="true"></i>Login with Facebook</a>*/}
-                    {/*    <a href="#"><i className="fa fa-twitter" aria-hidden="true"></i> Login with Twitter</a>*/}
-                    {/*</span>*/}
                 </div>
             </div>
             <div className="right">
@@ -52,9 +49,9 @@ function LoginPage() {
                         <br></br>
                         <button onClick={onClickLoginButton}>Login</button>
                     </div>
+                    <p><NavLink to={'/forgotPassword'} className="navbar-item">Forgot password? </NavLink></p>
                 </div>
                 <div>
-                    <br></br>
                     <br></br>
                     <br></br>
                     <br></br>
@@ -66,13 +63,6 @@ function LoginPage() {
                         Create your account!
                     </NavLink> It takes less than a minute</p>
                 </div>
-                {/*<div className="remember-me--forget-password">*/}
-                {/*    <label>*/}
-                {/*        <input type="checkbox" name="item" checked/>*/}
-                {/*        <span className="text-checkbox">Remember me</span>*/}
-                {/*    </label>*/}
-                {/*    <p>forget password?</p>*/}
-                {/*</div>*/}
             </div>
         </div>
     )

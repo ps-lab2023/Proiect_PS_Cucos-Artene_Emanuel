@@ -3,6 +3,7 @@ package com.travelPlanning.model;
 import com.travelPlanning.model.Trip;
 import com.travelPlanning.utils.ObjectiveTypes;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class Objective implements Serializable {
     private Long id;
 
     @Column
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column

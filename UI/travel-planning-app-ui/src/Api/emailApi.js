@@ -17,6 +17,18 @@ class EmailService {
             data: JSON.stringify(data)
         }).then(res => {return res})
     }
+
+    async sendCodedMail(data: IEmailDetails) {
+        return axios({
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': axios.defaults.headers.common["Authorization"]
+            },
+            url: EMAILS_REST_API_URL + '/codeMail',
+            data: JSON.stringify(data)
+        }).then(res => {return res.data})
+    }
 }
 
 const emailServices = new EmailService();

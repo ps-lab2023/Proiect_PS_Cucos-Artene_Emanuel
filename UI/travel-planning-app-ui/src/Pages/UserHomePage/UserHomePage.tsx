@@ -24,6 +24,8 @@ import AddFlightToTripForm from "../../Components/AddFlightToTripForm.tsx";
 import AddHotelToTripForm from "../../Components/AddHotelToTripForm.tsx";
 // @ts-ignore
 import AddObjectiveToTripForm from "../../Components/AddObjectiveToTripForm.tsx";
+// @ts-ignore
+import PopChat from "../PopChat/PopChat.tsx";
 
 const flightColumns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 130},
@@ -67,7 +69,8 @@ export default function UserHomePage() {
         trips: true,
         flights: false,
         hotels: false,
-        objectives: false
+        objectives: false,
+        support: false
     })
 
     const pull_data = (row: IModalTrip, shouldOpenModal: boolean) => {
@@ -100,6 +103,8 @@ export default function UserHomePage() {
     const [modalHotels, setModalHotels] = useState([]);
     const [modalObjectives, setModalObjectives] = useState([]);
 
+    const [userMessages, setUserMessages] = useState([]);
+
     const handleClose = () => setOpenModal(false);
     const setAllTablesFalse = () => {
         setShowFlightsTable(false);
@@ -113,7 +118,8 @@ export default function UserHomePage() {
             trips: false,
             flights: false,
             hotels: false,
-            objectives: false
+            objectives: false,
+            support: false
         });
         setAllTablesFalse();
         const pageName = page.toLowerCase();
@@ -137,6 +143,10 @@ export default function UserHomePage() {
                 setState({...state, trips: true});
                 getTrips();
                 setShowTripsTable(true);
+                break;
+            case 'support':
+                setState({...state, support: true});
+                navigate("/support");
                 break;
             default:
                 break;
@@ -169,6 +179,10 @@ export default function UserHomePage() {
             setObjectives(res.data);
             return res.data
         });
+    }
+
+    function getUserMessages() {
+
     }
 
     function onCLickLogOutUser() {
@@ -233,6 +247,9 @@ export default function UserHomePage() {
                         onClickNavBarButton('objectives')
                     }}>Objectives</Button>
                     <Button style={topButtonsStyle} onClick={() => {
+                        onClickNavBarButton('support')
+                    }}>Support</Button>
+                    <Button style={topButtonsStyle} onClick={() => {
                         onCLickLogOutUser()
                     }}>Logout</Button>
                 </div>
@@ -273,6 +290,7 @@ export default function UserHomePage() {
                     {openModal &&
                         <TransitionsModal open={openModal} tripName={modalTripName} tripId={modalTripId} flights={modalFlights} hotels={modalHotels} objectives={modalObjectives} handleClose={handleClose}/>
                     }
+                    <PopChat messages={userMessages}/>
                 </div>
             </div>
         </>

@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { IUserLogin, IUserRegister } from '../Model/user.tsx';
+import {IChangePass} from "../Model/user.tsx";
 
 const LOGIN_REST_API_URL = 'http://localhost:8081/api/auth/signin';
-const REGISTER_REST_API_URL = 'http://localhost:8081/api/auth/signup'
+const REGISTER_REST_API_URL = 'http://localhost:8081/api/auth/signup';
+const USER_COUNT_REST_API_URL = 'http://localhost:8081/api/auth/getCount';
+const CHANGE_PASS_REST_API_URL = 'http://localhost:8081/api/auth/changePass';
 
 class AuthService {
 
@@ -43,6 +46,31 @@ class AuthService {
     async logoutUser() {
         window.localStorage.removeItem('token');
         axios.defaults.headers.common["Authorization"] = '';
+    }
+
+    async getCountOfLoggedUsers() {
+        axios.defaults.headers.common["Authorization"] = '';
+        return axios({
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': axios.defaults.headers.common["Authorization"]
+            },
+            url: USER_COUNT_REST_API_URL,
+        }).then((res) => {return res});
+    }
+
+    async changeUserPassword(formData: IChangePass) {
+        axios.defaults.headers.common["Authorization"] = '';
+        return axios({
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': axios.defaults.headers.common["Authorization"]
+            },
+            url: CHANGE_PASS_REST_API_URL,
+            data: formData
+        });
     }
 }
 

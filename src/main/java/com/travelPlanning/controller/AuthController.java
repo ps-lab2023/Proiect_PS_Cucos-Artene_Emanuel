@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.travelPlanning.dtos.ChangePasswordData;
 import com.travelPlanning.model.Role;
 import com.travelPlanning.model.User;
 import com.travelPlanning.payload.request.LoginRequest;
@@ -20,6 +21,7 @@ import com.travelPlanning.service.UserService;
 import com.travelPlanning.utils.RoleType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,11 +29,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -72,6 +70,12 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        userService.getAllUsers().stream().filter(user -> user.getUsername().equals(loginRequest.getUsername())).findFirst().ifPresent(user -> {
+            user.setLogged(true);
+            userRepository.save(user);
+        });
+
+
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.id(),
                 userDetails.getUsername(),
@@ -102,6 +106,7 @@ public class AuthController {
                 .lastName(signUpRequest.getLastName())
                 .phoneNumber(signUpRequest.getPhoneNumber())
                 .birthdate(signUpRequest.getBirthdate())
+                .isLogged(false)
                 .build();
 
         Set<String> strRoles = signUpRequest.getRole();
@@ -132,5 +137,30 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @GetMapping("/getCount")
+    public ResponseEntity<?> getCountOfLoggedUsers(){
+        return ResponseEntity.ok(userService.countLoggedUsers());
+    }
+
+    @PostMapping("/changePass")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordData data) {
+
+        if (userService.existsByEmail(data.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+        userService.getAllUsers().stream()
+                .filter(u -> u.getEmail().equals(data.getEmail()))
+                .findFirst()
+                .ifPresent(user -> {
+                    user.setPassword(encoder.encode(data.getNewPass()));
+                    userRepository.save(user);
+                });
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }
