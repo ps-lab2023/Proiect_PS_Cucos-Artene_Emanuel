@@ -6,6 +6,7 @@ const LOGIN_REST_API_URL = 'http://localhost:8081/api/auth/signin';
 const REGISTER_REST_API_URL = 'http://localhost:8081/api/auth/signup';
 const USER_COUNT_REST_API_URL = 'http://localhost:8081/api/auth/getCount';
 const CHANGE_PASS_REST_API_URL = 'http://localhost:8081/api/auth/changePass';
+const USER_XML_REST_API_URL = 'http://localhost:8081/xml-output/userXML';
 
 class AuthService {
 
@@ -70,6 +71,22 @@ class AuthService {
             },
             url: CHANGE_PASS_REST_API_URL,
             data: formData
+        });
+    }
+
+    async getUserXML(formData: string) {
+        axios.defaults.headers.common["Authorization"] = '';
+        return axios({
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': axios.defaults.headers.common["Authorization"],
+                'Accept': 'application/xml'
+            },
+            url: USER_XML_REST_API_URL,
+            params: {
+                email: formData
+            }
         });
     }
 }

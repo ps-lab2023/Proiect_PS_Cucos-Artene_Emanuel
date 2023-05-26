@@ -1,9 +1,10 @@
 // @ts-ignore
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import './registerPage.css';
 import authService from '../../Api/authApi';
 import {useNavigate} from 'react-router-dom';
-import emailServices from '../../Api/emailApi'
+import emailServices from '../../Api/emailApi';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 function RegisterPage() {
 
@@ -16,8 +17,21 @@ function RegisterPage() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [birthdate, setBirthdate] = useState("");
+    const [message, setMessage] = useState("");
+
+    const captchaRef = useRef(null);
 
     const onClickRegisterButton = () => {
+
+        if(username === "" || password === '' || email === '') {
+            setMessage("All fields are mandatory!");
+            return;
+        }
+        if(password !== confirmPassword){
+            setMessage("Passwords have to match!");
+            return;
+        }
+        setMessage("");
         authService.registerUser({
             username: username,
             email: email,
@@ -85,6 +99,10 @@ function RegisterPage() {
                                onChange={e => setBirthdate(e.target.value)}
                                value={birthdate}
                         ></input>
+                        <label>{message}</label>
+                        <div className='formGroup'>
+                            <ReCAPTCHA sitekey={"6LelBR8mAAAAAAH5X-jsJRO_u0dl2iBWsuJAEc0H"} ref={captchaRef}  />
+                        </div>
                         <div>
                             <br></br>
                             <button onClick={onClickRegisterButton}>Create New Account</button>

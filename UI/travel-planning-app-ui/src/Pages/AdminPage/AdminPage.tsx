@@ -105,6 +105,7 @@ export default function AdminPage() {
     const [showObjectivesTable, setShowObjectivesTable] = useState(false);
     const [objectives, setObjectives] = useState([])
     const [connectedUsersCount, setConnectedUsersCount] = useState(0);
+    const [userEmail, setUseEmail] = useState("")
 
     const setAllTablesFalse = () => {
         setShowAirlinesTable(false);
@@ -215,6 +216,10 @@ export default function AdminPage() {
         });
     }
 
+    function onClickSeeUserXML(){
+        authService.getUserXML(userEmail);
+    }
+
     function onCLickLogOutUser() {
         authService.logoutUser();
         navigate('/');
@@ -288,6 +293,12 @@ export default function AdminPage() {
                     <Button style={topButtonsStyle} onClick={() => {
                         onCLickLogOutUser()
                     }}>Logout</Button>
+                    <Button style={topButtonsStyle} onClick={() => {
+                        const timeout = setTimeout(() => {
+                            // 👇️ redirects to an external URL
+                            window.location.replace('http://localhost:8081/xml-output/get');
+                        }, 1000);
+                    }}>XML</Button>
                     <Button style={topButtonsStyle} onClick={() => {
                         getConnectedUsers()
                     }}>{'Users: ' + connectedUsersCount}</Button>

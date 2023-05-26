@@ -12,12 +12,18 @@ export default function AirlineInputForm(props) {
     const [airlineDeleteId, setAirlineDeleteId] = useState("");
     const [airlineNewWebsite, setAirlineNewWebsite] = useState("");
     const [airlineNewName, setAirlineNewName] = useState("");
+    const [message, setMessage] = useState("");
 
     const inputStyle = {
         paddingTop: '10px',
     }
 
     function onClickAddAirline() {
+        if(airlineWebsite === "" || airlineName === '') {
+            setMessage("All fields are mandatory");
+            return;
+        }
+        setMessage("");
         const data = {
             websiteLink: airlineWebsite,
             name: airlineName,
@@ -61,6 +67,7 @@ export default function AirlineInputForm(props) {
                         onChange={e => {setAirlineWebsite(e.target.value)}}
                     />
                 </div>
+                <label>{message}</label>
                 <div style={inputStyle}>
                     <Button 
                         fullWidth 

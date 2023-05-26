@@ -12,12 +12,18 @@ export default function AirportInputForm(props) {
     const [airportDeleteId, setAirportDeleteId] = useState("");
     const [airportNewCity, setAirportNewCity] = useState("");
     const [airportNewCountry, setAirportNewCountry] = useState("");
+    const [message, setMessage] = useState("");
 
     const inputStyle = {
         paddingTop: '10px',
     }
 
     function onClickAddAirport() {
+        if(airportCity === '' || airportCountry === '') {
+            setMessage("All fields are mandatory!");
+            return;
+        }
+        setMessage("");
         const data = {
             city: airportCity,
             country: airportCountry,
@@ -62,6 +68,7 @@ export default function AirportInputForm(props) {
                         fullWidth
                     />
                 </div>
+                <label>{message}</label>
                 <div style={inputStyle}>
                     <Button
                         fullWidth
